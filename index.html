@@ -1,23 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <title>KSK Reemplazo de Trabajadores</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#317EFB"/>
+  <link rel="manifest" href="manifest.json" />
+  <title>Reemplazo KSK</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    #map { height: 100vh; }
+    #map { height: 500px; }
     .blinking {
-      animation: blinker 1s linear infinite;
+      animation: blink 1s infinite;
     }
-    @keyframes blinker {
-      50% { opacity: 0.2; }
+    @keyframes blink {
+      0%, 100% { stroke: red; stroke-width: 3; }
+      50% { stroke: yellow; stroke-width: 3; }
     }
   </style>
 </head>
 <body>
+  <h1>Mapa de Reemplazo KSK</h1>
   <div id="map"></div>
-  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+  <h2>Solicitar Reemplazo</h2>
+  <form id="solicitudForm">
+    <label>Trabajador a reemplazar:
+      <select id="trabajadorReemplazar"></select>
+    </label><br>
+    <label>Reemplazo propuesto:
+      <select id="reemplazoPropuesto"></select>
+    </label><br>
+    <button type="submit">Enviar solicitud</button>
+  </form>
+
+  <h2>Solicitudes Pendientes</h2>
+  <ul id="listaSolicitudes"></ul>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
 </body>
 </html>
